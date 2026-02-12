@@ -24,23 +24,20 @@
             <p class="mt-2 text-xs text-slate-400">Unique category labels</p>
         </article>
         <article class="rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900 to-slate-800 p-5 shadow-xl">
-            <p class="text-xs font-bold uppercase tracking-wider text-fuchsia-300">Progress</p>
-            <p class="mt-2 text-3xl font-bold text-white">68%</p>
-            <div class="mt-3 h-2 w-full rounded-full bg-slate-700">
-                <div class="h-2 w-[68%] rounded-full bg-fuchsia-400"></div>
-            </div>
-            <p class="mt-2 text-xs text-slate-400">Dashboard completion status</p>
+            <p class="text-xs font-bold uppercase tracking-wider text-fuchsia-300">Average Price</p>
+            <p class="mt-2 text-3xl font-bold text-white">Rp {{ number_format($averageHarga, 0, ',', '.') }}</p>
+            <p class="mt-2 text-xs text-slate-400">Rata-rata harga seluruh produk</p>
         </article>
         <article class="rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900 to-slate-800 p-5 shadow-xl">
-            <p class="text-xs font-bold uppercase tracking-wider text-amber-300">Pending Requests</p>
-            <p class="mt-2 text-3xl font-bold text-white">{{ max(0, 12 - $totalProduk) }}</p>
-            <p class="mt-2 text-xs text-slate-400">Need action from admin team</p>
+            <p class="text-xs font-bold uppercase tracking-wider text-amber-300">Top Product</p>
+            <p class="mt-2 text-xl font-bold text-white">{{ $mostExpensive }}</p>
+            <p class="mt-2 text-xs text-slate-400">Produk dengan harga tertinggi</p>
         </article>
     </section>
 
     <section class="grid gap-6 xl:grid-cols-3">
         <article class="rounded-2xl border border-white/10 bg-slate-900/80 p-5 shadow-xl xl:col-span-2">
-            <h2 class="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">Monthly Trend</h2>
+            <h2 class="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">Traffic & Sales Trend</h2>
             <div class="h-72">
                 <canvas id="lineChart"></canvas>
             </div>
@@ -66,10 +63,10 @@
             new Chart(lineCtx, {
                 type: 'line',
                 data: {
-                    labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8', 'W9', 'W10', 'W11', 'W12'],
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
                     datasets: [{
-                        label: 'Traffic Score',
-                        data: [5, 8, 12, 10, 14, 16, 13, 18, 21, 19, 24, 28],
+                        label: 'Penjualan (x100rb)',
+                        data: [6, 9, 12, 10, 14, 17, 15, 20, 22, 21, 25, 29],
                         borderColor: '#22D3EE',
                         backgroundColor: 'rgba(34, 211, 238, 0.16)',
                         fill: true,
@@ -101,9 +98,9 @@
             new Chart(donutCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Organic', 'Ads', 'Referral'],
+                    labels: ['Direct', 'Social', 'Referral'],
                     datasets: [{
-                        data: [48, 34, 18],
+                        data: [52, 29, 19],
                         backgroundColor: ['#22D3EE', '#34D399', '#A78BFA'],
                         borderWidth: 0
                     }]

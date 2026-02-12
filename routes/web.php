@@ -4,13 +4,19 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [LandingController::class, 'index'])->name('landing.index');
-Route::get('/produk/{product}', [LandingController::class, 'show'])->name('landing.show');
+// SEKSI B - Landing Page (Frontend)
+Route::name('landing.')->group(function (): void {
+    Route::get('/', [LandingController::class, 'index'])->name('index');
+    Route::get('/produk/{product}', [LandingController::class, 'show'])->name('show');
+});
 
-Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-Route::get('/admin/products', [AdminController::class, 'index'])->name('admin.products.index');
-Route::get('/admin/products/create', [AdminController::class, 'create'])->name('admin.products.create');
-Route::post('/admin/products', [AdminController::class, 'store'])->name('admin.products.store');
-Route::get('/admin/products/{product}/edit', [AdminController::class, 'edit'])->name('admin.products.edit');
-Route::put('/admin/products/{product}', [AdminController::class, 'update'])->name('admin.products.update');
-Route::delete('/admin/products/{product}', [AdminController::class, 'destroy'])->name('admin.products.destroy');
+// SEKSI A - Admin Panel (Backend)
+Route::prefix('admin')->name('admin.')->group(function (): void {
+    Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/products', [AdminController::class, 'index'])->name('products.index');
+    Route::get('/products/create', [AdminController::class, 'create'])->name('products.create');
+    Route::post('/products', [AdminController::class, 'store'])->name('products.store');
+    Route::get('/products/{product}/edit', [AdminController::class, 'edit'])->name('products.edit');
+    Route::put('/products/{product}', [AdminController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}', [AdminController::class, 'destroy'])->name('products.destroy');
+});

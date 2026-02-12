@@ -12,6 +12,24 @@
         </a>
     </div>
 
+    <form method="GET" action="{{ route('admin.products.index') }}" class="mb-5">
+        <div class="flex flex-col gap-2 sm:flex-row">
+            <input type="text"
+                   name="q"
+                   value="{{ $keyword }}"
+                   placeholder="Cari nama produk atau kategori..."
+                   class="w-full rounded-full border border-white/20 bg-slate-900/70 px-4 py-2 text-sm text-slate-100 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20">
+            <button type="submit" class="rounded-full bg-white/15 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:bg-white/25">
+                Cari
+            </button>
+            @if ($keyword !== '')
+                <a href="{{ route('admin.products.index') }}" class="rounded-full border border-white/20 px-4 py-2 text-center text-sm font-semibold text-slate-200 transition hover:bg-white/10">
+                    Reset
+                </a>
+            @endif
+        </div>
+    </form>
+
     <div class="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 shadow-2xl backdrop-blur">
         <div class="overflow-x-auto">
             <table class="min-w-full text-left text-sm text-slate-200">
@@ -55,11 +73,21 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-4 py-6 text-center text-slate-400">Belum ada data produk.</td>
+                            <td colspan="5" class="px-4 py-6 text-center text-slate-400">
+                                @if ($keyword !== '')
+                                    Tidak ada produk yang cocok dengan pencarian.
+                                @else
+                                    Belum ada data produk.
+                                @endif
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <div class="mt-5">
+        {{ $products->links() }}
     </div>
 @endsection

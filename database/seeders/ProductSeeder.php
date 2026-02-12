@@ -14,7 +14,7 @@ class ProductSeeder extends Seeder
     {
         Product::query()->insert([
             [
-                'thumbnail' => 'products/iphone-13-pro.svg',
+                'thumbnail' => 'images/products/iphone-13-pro.jpg',
                 'kategori' => 'Iphone',
                 'nama_produk' => 'Iphone 13 Pro',
                 'harga' => 12000000,
@@ -22,7 +22,7 @@ class ProductSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'thumbnail' => 'products/samsung-x-flip.svg',
+                'thumbnail' => 'images/products/samsung-x-flip.jpg',
                 'kategori' => 'Samsung',
                 'nama_produk' => 'Samsung X Flip',
                 'harga' => 20000000,
@@ -30,7 +30,7 @@ class ProductSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'thumbnail' => 'products/xiaomi-redmi-note-11-pro.svg',
+                'thumbnail' => 'images/products/xiaomi-redmi-note-11-pro.jpg',
                 'kategori' => 'Xiaomi',
                 'nama_produk' => 'Xiaomi Redmi Note 11 Pro',
                 'harga' => 3200000,

@@ -12,16 +12,36 @@ class AdminController extends Controller
 {
     public function dashboard(): View
     {
+        $mostExpensive = Product::query()->orderByDesc('harga')->first();
+        $averageHarga = (int) Product::query()->avg('harga');
+
         return view('admin.dashboard', [
             'totalProduk' => Product::query()->count(),
             'totalKategori' => Product::query()->distinct('kategori')->count('kategori'),
+            'averageHarga' => $averageHarga,
+            'mostExpensive' => $mostExpensive?->nama_produk ?? '-',
         ]);
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
+        $keyword = trim((string) $request->query('q', ''));
+
+        $products = Product::query()
+            ->when($keyword !== '', function ($query) use ($keyword): void {
+                $query->where(function ($subQuery) use ($keyword): void {
+                    $subQuery
+                        ->where('nama_produk', 'like', '%' . $keyword . '%')
+                        ->orWhere('kategori', 'like', '%' . $keyword . '%');
+                });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
         return view('admin.products.index', [
-            'products' => Product::query()->latest()->get(),
+            'products' => $products,
+            'keyword' => $keyword,
         ]);
     }
 

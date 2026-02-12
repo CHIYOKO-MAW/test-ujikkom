@@ -25,7 +25,7 @@
         </div>
 
         <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            @foreach ($products as $product)
+            @forelse ($products as $product)
                 <article class="group overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-xl backdrop-blur">
                     <div class="relative overflow-hidden">
                         <img src="{{ $product->thumbnail_url }}"
@@ -40,11 +40,15 @@
                         <p class="mt-2 text-xl font-extrabold text-emerald-400">Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
                         <a href="{{ route('landing.show', $product) }}"
                            class="mt-4 inline-flex rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-500">
-                            View Details
+                            Lihat Detail
                         </a>
                     </div>
                 </article>
-            @endforeach
+            @empty
+                <div class="col-span-full rounded-2xl border border-white/10 bg-white/5 p-6 text-center text-slate-300">
+                    Produk belum tersedia.
+                </div>
+            @endforelse
         </div>
     </section>
 @endsection
